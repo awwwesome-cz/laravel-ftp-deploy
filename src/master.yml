@@ -1,0 +1,58 @@
+on:
+  push:
+    branches:
+      - master
+name: Production Deploy
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v2
+
+      # Setup PHP version on server
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          # extensions: imagick, swoole # if project need extensions in future
+
+      # Cache composer
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      # Install composer dependencies for production
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-progress
+
+      # Install NPM dependencies
+      - name: Install NPM dependencies
+        run: npm install
+
+      # Run NPM production build
+      - name: Install NPM dependencies
+        run: npm run production
+
+      # copy .env from secrets
+      - name: Create .env file from secrets
+        run: |
+          touch .env
+          printf '${{ secrets.DOT_ENV_PRODUCTION }}' > .env
+
+      # deploy to FTP server
+      - name: Deploy files to FTP
+        env:
+          FTP_HOST: xxxxxx.xx.xxxxxx.net
+          FTP_USERNAME: ${{ secrets.ftp_username }}
+          FTP_PASSWORD: ${{ secrets.ftp_password }}
+          ENV_DEPLOY: true
+        run: php artisan deploy:server production_ftp
+
+        # TODO: generate API doc before upload from test
