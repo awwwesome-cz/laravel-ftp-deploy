@@ -169,7 +169,8 @@ Route::get('migrate', function (Request $request) {
                     '--force' => true
                 ]);
             }
-            return "ok [$migrateCode, $seedCode]";
+            return "Migration & seed status<br>
+                    [migration code: $migrateCode, seed code: $seedCode]";
         }
 
         return 'Hash mishmash!';
