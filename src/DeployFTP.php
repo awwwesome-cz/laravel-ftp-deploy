@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
  *
  * requirements:
  * - ZipArchive PHP extension on server
- * - zip command in device shell
+ * - zip command on device shell
  */
 class DeployFTP extends Command
 {
@@ -22,7 +22,7 @@ class DeployFTP extends Command
      *
      * @var string
      */
-    protected $signature = 'deploy:ftp {server} {--debug=1} ';
+    protected $signature = 'deploy:server {server} {--migrate} {--debug=1} ';
 
     /**
      * The console command description.
@@ -72,7 +72,8 @@ class DeployFTP extends Command
         '.github/*',
         '.scribe/*',
         '.env',
-        'storage/app/*',
+        'storage/app/images/*',
+        'storage/app/public/*',
         'storage/logs/*',
         'storage/framework/cache/*',
         'storage/framework/sessions/*',
@@ -333,6 +334,8 @@ class DeployFTP extends Command
                 echo "complete";
             } else {
                 echo "error";
-            }';
+            }
+
+';
     }
 }
