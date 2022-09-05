@@ -7,7 +7,7 @@ automatic deployment.
 **Testen on WEDOS Shared Hosting**
 
 - [Personal Website](https://jakubforman.eu/)
-- [Company Website](https://awwwesome.com/)
+- [Company Website](https://awwwesome.cz/)
 - [Custom Mobile App Website](https://foode.cz/)
 
 Made by: Ing. Jakub Josef Forman (M.Sc.)
