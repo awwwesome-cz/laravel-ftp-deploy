@@ -133,7 +133,7 @@ Made by: Ing. Jakub Josef Forman (M.Sc.)
 ```
 
 5. Run Command for deploy
-    - For run you can use simple command (`php` or `sail` - if you run locally) `sail artisan deploy:ftp production_ftp`
+    - For run you can use simple command (`php` or `sail` - if you run locally) `sail artisan deploy:server production_ftp`
       `production_ftp` is defined in 1. Setup FTP!
 6. (optional) Automatic Migrate, Migrate Fresh and Seeder.
     - Open `routes/web.php` and add this route. Route is protected by `MIGRATION_HASH` `env` variable which is generated
